@@ -1,5 +1,8 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "cli": {
+    "analytics": false
+  },
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
@@ -31,9 +34,24 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/ngx-toastr/toastr.css",
+              "node_modules/bootstrap/dist/css/bootstrap.css",
+              "node_modules/@fortawesome/fontawesome-free/scss/fontawesome.scss",
+              "node_modules/@fortawesome/fontawesome-free/scss/fontawesome.scss",
+              "node_modules/@fortawesome/fontawesome-free/scss/solid.scss",
+              "node_modules/@fortawesome/fontawesome-free/scss/regular.scss",
+              "node_modules/@fortawesome/fontawesome-free/scss/brands.scss",
+              "node_modules/angular-bootstrap-md/assets/scss/bootstrap/bootstrap.scss",
+              "node_modules/angular-bootstrap-md/assets/scss/mdb.scss",
+              "node_modules/animate.css/animate.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/bootstrap/dist/js/bootstrap.js",
+              "node_modules/jquery/dist/jquery.min.js",
+              "node_modules/chart.js/dist/Chart.js",
+              "node_modules/hammerjs/hammer.min.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -62,6 +80,38 @@
                   "maximumError": "4kb"
                 }
               ]
+            },
+            "staging":{
+              "fileReplacements":[
+                 {
+                    "replace": "src/environments/environment.ts",
+                    "with": "src/environments/environment.staging.ts"
+                 }
+              ]
+            },
+            "qa": {
+              "fileReplacements":[
+                {
+                   "replace": "src/environments/environment.ts",
+                   "with": "src/environments/environment.qa.ts"
+                }
+              ]
+            },
+            "testing": {
+              "fileReplacements":[
+                {
+                   "replace": "src/environments/environment.ts",
+                   "with": "src/environments/environment.testing.ts"
+                }
+              ]
+            },
+            "dev": {
+              "fileReplacements":[
+                {
+                   "replace": "src/environments/environment.ts",
+                   "with": "src/environments/environment.dev.ts"
+                }
+              ]
             }
           }
         },
@@ -73,6 +123,18 @@
           "configurations": {
             "production": {
               "browserTarget": "angular-starter:build:production"
+            },
+            "staging": {
+              "browserTarget": "angular-starter:build:staging"
+            },
+            "qa" : {
+              "browserTarget": "angular-starter:build:qa"
+            },
+            "testing" : {
+              "browserTarget": "angular-starter:build:testing"
+            },
+            "dev" : {
+              "browserTarget": "angular-starter:build:dev"
             }
           }
         },
@@ -121,6 +183,18 @@
           "configurations": {
             "production": {
               "devServerTarget": "angular-starter:serve:production"
+            },
+            "staging": {
+              "devServerTarget": "angular-starter:serve:staging"
+            },
+            "qa": {
+              "devServerTarget": "angular-starter:serve:qa"
+            },
+            "testing": {
+              "devServerTarget": "angular-starter:serve:testing"
+            },
+            "dev": {
+              "devServerTarget": "angular-starter:serve:dev"
             }
           }
         }
