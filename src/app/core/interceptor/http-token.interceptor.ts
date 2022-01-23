@@ -14,14 +14,14 @@ export class HttpTokenInterceptor implements HttpInterceptor {
   constructor(private authenticationService: AuthenticationService) {}
 
   intercept(req: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    const headersConfig = {
+    const headersConfig: any = {
       'Content-Type': 'application/json',
       Accept: 'application/json'
     };
 
     // const token = this.authenticationService.getToken();
     // if (token) {
-    //   headersConfig['Authorization'] = `${token}`;
+    //   headersConfig['x-auth-token'] = `${token}`;
     // }
 
     const request = req.clone({ setHeaders: headersConfig });

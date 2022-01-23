@@ -2,5 +2,5 @@
  * API URLS
  */
 export const urls = {
-  login: '/login',
+  login: '/api/auth',
 };

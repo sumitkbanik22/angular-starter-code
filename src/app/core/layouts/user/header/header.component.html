@@ -1,28 +1,32 @@
-<mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark blue ie-nav" [containerInside]="false">
-  <mdb-navbar-brand>
-      <a class="logo navbar-brand" href="#"><strong>LOGO</strong></a>
-  </mdb-navbar-brand>
-  <links>
-      <ul class="navbar-nav mr-auto">
-          <li class="nav-item active waves-light" mdbWavesEffect>
-              <a class="nav-link">Home <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item waves-light" mdbWavesEffect>
-              <a class="nav-link">Features</a>
-          </li>
-      </ul>
-      <!-- <ul class="navbar-nav nav-flex-icons">
-          <li class="nav-item waves-light" mdbWavesEffect>
-              <a class="nav-link"><mdb-icon fab icon="facebook-f"></mdb-icon></a>
-          </li>
-          <li class="nav-item waves-light" mdbWavesEffect>
-              <a class="nav-link"><mdb-icon fab icon="twitter"></mdb-icon></a>
-          </li>
-      </ul> -->
-      <ul class="navbar-nav nav-flex-icons">
-        <li class="nav-item waves-light" mdbWavesEffect>
-            <a class="nav-link" (click)="onClickLogout()">Logout</a>
-        </li>
-      </ul>
-  </links>
-</mdb-navbar>
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <!-- <button mat-icon-button (click)="sidenav.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button> -->
+    <h1>E-Vehicle Permit</h1>
+    <span class="menu-spacer"></span>
+    <div>
+      <!-- <a mat-button [routerLink]="'/user/home/dashboard'"> Home </a> -->
+    </div>
+    <span class="flexExpand"></span>
+    <div >
+      <a mat-button (click)="onClickLogout()"> Logout </a>
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-sidenav-container>
+  <mat-sidenav #sidenav>
+    <mat-nav-list>
+
+      <!-- <a mat-list-item [routerLink]="'/user/home/dashboard'"> Home </a> -->
+      <a mat-list-item (click)="sidenav.toggle()" mat-list-item>Close</a>
+
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <div style="height: 88vh;">
+      <ng-content select="router-outlet"></ng-content>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

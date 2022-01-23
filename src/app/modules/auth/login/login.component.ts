@@ -16,7 +16,6 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   public loginForm: FormGroup;
   public isSubmit: boolean ;
-  public hide: boolean;
   public returnUrl: string;
   public appSettings = appSettings;
 
@@ -28,8 +27,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.authenticationService.logout();
-    this.hide = true;
-    this.returnUrl = this.route.snapshot.queryParams.returnUrl || null;
+    this.returnUrl = this.route.snapshot.queryParams.returnUrl || 'user/home/dashboard';
     this.initializeLoginForm();
   }
 
@@ -37,26 +35,24 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  onClickRegister(): void {
-    this.router.navigate(['auth/register']);
-  }
-
   initializeLoginForm(): void {
     this.loginForm = this.fb.group({
-      email : ['', [Validators.required, Validators.email, Validators.maxLength(250)]],
-      password: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(14)]],
-      rememberMe: ['']
+      email : ['', [Validators.required, Validators.email, Validators.minLength(5), Validators.maxLength(255)]],
+      password: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(255)]],
     });
   }
 
-  get email() { return this.loginForm.get('email'); }
-  get password() { return this.loginForm.get('password'); }
-  get remember()   { return this.loginForm.get('remember'); }
+  onClickLogin(): any {
 
-  onClickSignIn(): void {
+    this.isSubmit = true;
+    if (this.loginForm.invalid) {
+      return false;
+    }
     this.subscription.add(this.userAuthService.login(this.loginForm.value).subscribe((data: any) => {
+      console.log(data);
+      this.isSubmit = false;
       this.toasterService.success(this.appSettings.loginSuccess);
-      this.router.navigate(['user/home/dashboard']);
+      this.router.navigate([this.returnUrl]);
     }));
   }
 

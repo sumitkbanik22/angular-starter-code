@@ -32,7 +32,7 @@ export class AuthenticationService {
 
   getToken(): any {
       const savedCredentials = this.getUser();
-      return savedCredentials && savedCredentials['token'];
+      return savedCredentials && savedCredentials['x-auth-token'];
   }
 
   getUserRole(): Observable<any> {

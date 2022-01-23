@@ -1,7 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { Login } from 'src/app/shared/models/login.model';
 import { environment } from 'src/environments/environment';
 
@@ -16,13 +16,13 @@ export class UserAuthService {
 
   login(loginData: Login): Observable<any> {
     const href = `${ environment.login }`;
-    return this.http.post<any>(href, loginData).pipe(
-        tap((data) => {
-            if (data.status === 'success') {
+    return this.http.post<any>(href, loginData, {observe: 'response'}).pipe(
+        map((data: HttpResponse<any>) => {
+            if (data.body.status === 'success') {
                 const storage = loginData.rememberMe ? localStorage : sessionStorage;
-                storage.setItem(loggedInUserDetails, JSON.stringify(data));
+                storage.setItem(loggedInUserDetails, JSON.stringify({...data.body.response, 'x-auth-token': data.headers.get('x-auth-token')}));
             }
-            return data;
+            return data.body.response;
           }
         )
     );
